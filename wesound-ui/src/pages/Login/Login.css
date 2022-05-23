@@ -1,0 +1,9 @@
+.Login .card-wrapper {
+    background: #fff;
+    border: 1.5px solid #FF6F00;
+    border-radius: 5px;
+  }
+  
+  .Login .form-group {
+    margin-bottom: 1rem;
+  }
