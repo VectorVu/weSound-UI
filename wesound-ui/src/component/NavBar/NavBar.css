@@ -1,0 +1,42 @@
+
+
+.Container-NavBar{
+    background-color: #333 !important;
+}
+
+.NavBar{
+    display: flex;
+    height: 46px;
+}
+.Navbar-left{
+    flex: 1;
+    align-items: center;
+}
+.NavBar-Collapse{
+    display: flex !important;
+}
+.NavBar-brand{
+    padding: 5px;
+    background-color: black;
+}
+.NavBar-logo{
+    
+}
+.NavBar-item{
+    height: 46px;
+    min-width: 104px;
+    text-align: center;
+    border-right: 1px solid #877d6e;
+}
+.NavBar-form{
+    position: relative;
+    height: 28px;
+    flex: 1;
+    margin-left: 16px;
+}
+.NabBarForm-button{
+    position: absolute;
+    right: 5px;
+    border: none;
+    background-color: inherit;
+}
