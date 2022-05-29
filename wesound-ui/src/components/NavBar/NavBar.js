@@ -1,6 +1,7 @@
 import React from 'react';
 import {Button, Container,Navbar as bNavBar,} from'react-bootstrap'
 import { Nav, NavDropdown, Form, FormControl} from 'react-bootstrap'
+import { Link } from 'react-router-dom';
 import './NavBar.css'
 export default function NavBar(){
 
@@ -24,7 +25,7 @@ export default function NavBar(){
                     style={{ maxHeight: '100px' }}
                     navbarScroll
                     >
-                    <Nav.Link href="#action1" className='NavBar-item'>Home</Nav.Link>
+                    <Nav.Link href="/" className='NavBar-item'>Home</Nav.Link>
                     <Nav.Link href="#action2" className='NavBar-item'>Stream</Nav.Link>
                     <Nav.Link href="#action2" className='NavBar-item'>Library</Nav.Link>
                     
@@ -47,7 +48,7 @@ export default function NavBar(){
                         LogOut
                         </NavDropdown.Item>
                     </NavDropdown>
-                    <Nav.Link href="#action2">Upload</Nav.Link>
+                    <Nav.Link href="/upload">Upload</Nav.Link>
                     <Nav.Link href="#action2">
                         <img 
                             src='https://a-v2.sndcdn.com/assets/images/activities-66caaa5e.svg'

@@ -11,18 +11,81 @@ export default function Upload(){
             defaultValues: {
                 title: '',
                 streamUrl:'',
+                imageUrl:'',
                 author:'',
                 genre:'none'
             }
         }
     );
-    const onSubmit =(values)=>{
-        console.log(values);
+    const uploadFile = async (type ,file)=>{ 
+        const formData = new FormData();
+        formData.append('file', file); 
+        try {
+                const res = await axios({
+                    url:`http://localhost:9009/api/upload/${type}`,
+                    method:'POST',
+                    data: formData
+                });
+                return res.data.data;
+        } catch (error) {
+            return '';
+        }
+    }
+    const onSubmit = async(values)=>{
+        let id;
+        console.log(values.streamUrl[0]);
+        if(values.streamUrl[0]){
+            id = toast.loading("Uploading...");
+            let imageUrl='';
+            if(values.imageUrl[0]){
+                imageUrl = await uploadFile('img', values.imageUrl[0]);
+            }
+            const streamUrl = await uploadFile('audio', values.streamUrl[0]);
+            try {
+                const res = await axios({
+                    url:'http://localhost:9009/api/track',
+                    method:'POST',
+                    data:{
+                        title: values.title,
+                        streamUrl,
+                        imageUrl,
+                        author: values.author,
+                        genre: values.genre
+                    }
+                })
+                if(res.data.success){
+                    toast.update(id, {
+                        render: "Upload track successfuly",
+                        type: "success",
+                        isLoading: false,
+                        autoClose: 3000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        closeButton:true
+                    })
+                }
+            } catch (error) {
+                toast.update(id, {
+                    render: error.message,
+                    type: "error",
+                    isLoading: false,
+                    autoClose: 3000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    closeButton:true
+                })
+            }
+        }
     }
     return(
         <div className="Upload container-fluid" style={{ background: "#fafafa" }}>
-            <div className="paper">
-               
+            <div className="paper">             
                     <div className="card-wrapper p-4">
                         <form className="upload-form" onSubmit={handleSubmit(onSubmit)} autoComplete="off">
                             <h4 className="mb-4">We Sound - Upload your track</h4>
@@ -34,6 +97,7 @@ export default function Upload(){
                                  type="file"
                                  accept="image/jpeg,image/pjpeg,image/gif,iamge/png"
                                  id ="trackImg"
+                                 {...register('imageUrl')}
                                  />
                                  <label htmlFor="trackImg" className="inputFile-label">Choose a Photo</label>
                                </div>
@@ -46,8 +110,11 @@ export default function Upload(){
                                  type="file"
                                  accept="image/jpeg,image/pjpeg,image/gif,iamge/png"
                                  id ="trackMp3"
+                                 {...register('streamUrl',{required:true})}
                                  />
                                  <label htmlFor="trackMp3" >Choose a File</label>
+                                 {errors?.streamUrl?.type === 'required' && <p>you must choose an mp3 file to upload</p>}
+
                                </div>
                             </div>  
                                 <label htmlFor="title" className="form-label">Title:<span style={{color:"red"}}> * </span></label>
@@ -99,14 +166,9 @@ export default function Upload(){
                                 Save
                             </button>
                             </div>
-                           
-                            </div>
-                           
-                           
-                           
+                            </div> 
                         </form>
                     </div>
-                    
                         <ToastContainer position="top-center"
                             autoClose={5000}
                             hideProgressBar={false}
@@ -116,8 +178,6 @@ export default function Upload(){
                             pauseOnFocusLoss
                             draggable
                             pauseOnHover />
-                   
-                
             </div>
         </div>
     )
