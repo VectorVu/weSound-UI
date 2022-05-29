@@ -1,0 +1,33 @@
+
+.FooterApp-name{
+    border-bottom: 1px solid #f2f2f2 ;
+    color: #999999;
+}
+
+.Footer-appleStore{
+    font-size: 14px;
+    display: inline-block;
+    width: 120px;
+    height: 40px;
+    background-repeat: no-repeat;
+    background-size: 100%;
+    background-image: url(https://a-v2.sndcdn.com/assets/images/appstore_badge@en-9e7292e6.png);
+}
+.Footer-containerApp{
+    margin: 10px 0;
+    border-bottom: 1px solid #f2f2f2 ;
+
+}
+.Footer-ggPlay{
+    display: inline-block;
+    width: 135px;
+    height: 40px;
+    background-repeat: no-repeat;
+    background-size: 100%;
+    background-image: url(https://a-v2.sndcdn.com/assets/images/google_play_badge@en-51d52194.png);
+}
+.Footer-text{
+    color:#999999;
+    font-size: 14px;
+    font-weight: 600;
+}
