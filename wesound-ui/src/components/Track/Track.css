@@ -22,21 +22,59 @@
     /* flex: 1; */
     height: 160px;
     width: 100%;
+    margin-left: 5px;
     background-image: url(https://va.sndcdn.com/bg/soundcloud:tracks:940102804/b28c652f-1702-495d-bf8b-b03374aae1af.jpeg);
+    position: relative;
 }
-.TrackContent-userName{
-    color: #999;
-    margin-right: 10px;
+.TrackContent-Title{
+    display: flex;
+    align-items: center;
+    padding: 10px;
 }
-.TrackContent-trackName{
+.TrackContent-button{
+    width: 36px;
+    height: 36px;
+    background: #ff5500;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.TrackContent-containerUserName{
     margin-left: 10px;
 }
+.TrackContent-userName{
+    background-color: rgba(0,0,0,.8);
+    color: #999;
+    font-size: 12px;
+    padding: 0 10px 0 10px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 33ch;
+}
+.TrackContent-trackName{
+    background-color: rgba(0,0,0,.8);
+    color: #fff;
+    font-size: 15px;
+    height: 24px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 42ch;
+    padding: 0 10px 0 10px;
+    margin-top: 4px;
+    }
 .TrackContent-comment{
     display: flex;
     align-items: center;
     background-color: #f2f2f2;
     padding: 4px;
     border: 1px solid #e5e5e5;
+    position: absolute;
+    right: 0;
+    left: 0;
+    bottom: -75px;
 }
 .TrackContent-comment > img{
     height: 20px;
@@ -49,4 +87,9 @@
     width: 100%;
     height: 20px;
     border: none;
+}
+.Track-additional{
+    display: flex;
+    position: absolute;
+    bottom: -31px;
 }
