@@ -2,38 +2,41 @@ import axios from "axios";
 import React from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate, useSearchParams } from 'react-router-dom';
-import "./Login.css";
+import "./Register.css";
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-export default function Login() {
+
+export default function Register() {
     const { register, handleSubmit, watch, formState: { errors } } = useForm(
         {
             defaultValues: {
                 username: '',
-                password: ''
+                password: '',
+                repeatPassword: '',
             }
         }
     );
     const navigate = useNavigate();
     const [urlSearchParams, setUrlSearchParams] = useSearchParams();
     const returnPage = urlSearchParams.get('from');
-    const onSubmit = async(values) => {
+    const onSubmit = async (values) => {
         let id;
-        const {username, password} = values;
+        const { username, password, repeatPassword } = values;
         try {
-            id = toast.loading("login...");
+            id = toast.loading("Registering...");
             const res = await axios({
-                url:"http://localhost:9009/api/auth/login",
-                method:"post",
-                data:{
+                url: "http://localhost:9009/api/auth/register",
+                method: "post",
+                data: {
                     username,
-                    password
+                    password,
+                    repeatPassword
                 }
             });
             if (res.data.success) {
                 toast.update(id, {
-                    render: "Sign in successfuly",
+                    render: "Sign up successfuly",
                     type: "success",
                     isLoading: false,
                     autoClose: 3000,
@@ -45,7 +48,7 @@ export default function Login() {
                     closeButton:true
                 })
                 returnPage ? navigate(returnPage) : navigate("/");
-            }
+            }           
         } catch (err) {
             toast.update(id, {
                 render: err.message,
@@ -57,21 +60,20 @@ export default function Login() {
                 pauseOnHover: true,
                 draggable: true,
                 progress: undefined,
-                closeButton:true,
-                autoComplete:true
-            });
+                closeButton:true
+            })
         }
     };
     console.log("errors", errors);
     return (
-        <div className="Login container-fluid" style={{ background: "#fafafa" }}>
+        <div className="Register container-fluid" style={{ background: "#fafafa" }}>
             <div className="vh-100 justify-content-md-center align-items-center row">
                 <div className="col-md-4 col-12">
                     <div className="card-wrapper p-4">
                         <form className="" onSubmit={handleSubmit(onSubmit)} autoComplete="off">
                             <h4 className="mb-4">We Sound</h4>
                             <div className="mb-4">
-                            <label htmlFor="uname" className="form-label">User Name:<span style={{color:"red"}}> * </span></label>
+                                <label htmlFor="uname" className="form-label">User Name:<span style={{color:"red"}}> * </span></label>
                                 <div className="form-group">
                                     <input
                                         id="uname"
@@ -94,17 +96,35 @@ export default function Login() {
                                         {...register("password", { required: true, minLength: 8 })}
                                     />
                                     {errors?.password?.type === 'required' && <p>Password is required</p>}
-                                    {errors?.password?.type === 'minLength' && <p>Password must be more than 6 characters</p>}
+                                    {errors?.password?.type === 'minLength' && <p>Password must be more than 8 characters</p>}
+                                </div>
+                                <label htmlFor="confirm" className="form-label">Confirm password:<span style={{color:"red"}}> * </span></label>
+                                <div className="form-group">
+                                    <input
+                                        id="confirm"
+                                        placeholder="Enter your confirm password..."
+                                        type="password"
+                                        className="form-control"
+                                        autoComplete="off"
+                                        {...register("repeatPassword", {
+                                            required: true, validate: (value) => {
+                                                if (value !== watch('password')) return false;
+                                                return true;
+                                            }
+                                        })}
+                                    />
+                                    {errors?.repeatPassword?.type === 'required' && <p>Confirm password is required</p>}
+                                    {errors?.repeatPassword?.type === 'validate' && <p>Your comfirm passwords do no match</p>}
                                 </div>
                             </div>
                             <button type="submit" className="btn btn-primary btn-block">
-                                Login
+                                Sign Up
                             </button>
                         </form>
                     </div>
                     <div className="card-wrapper mt-4 p-3">
                         <div>
-                            No account? <Link to="/register">Sign up here</Link>
+                            Have already an account? <Link to="/login">Login here</Link>
                         </div>
                         <ToastContainer position="top-center"
                             autoClose={5000}

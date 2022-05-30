@@ -2,13 +2,16 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
+import NavBar from "./components/NavBar/NavBar";
 import reportWebVitals from './reportWebVitals';
+import { BrowserRouter } from 'react-router-dom'
 // import "swiper/css/bundle"
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <React.StrictMode>
+  <BrowserRouter>
+    <NavBar/>
     <App />
-  </React.StrictMode>
+  </BrowserRouter>
 );
 
 // If you want to start measuring performance in your app, pass a function
