@@ -41,14 +41,14 @@ export default function NavBar(){
                     </Form>
                     </Nav>
                     <NavDropdown title="carosaome" id="navbarScrollingDropdown">
-                        <NavDropdown.Item href="#action3">Action</NavDropdown.Item>
+                        <NavDropdown.Item><Link to="/profile" style={{textDecoration:"none", color:"black"}}>Profile</Link></NavDropdown.Item>
                         <NavDropdown.Item href="#action4">Another action</NavDropdown.Item>
                         <NavDropdown.Divider />
                         <NavDropdown.Item href="#action5">
                         LogOut
                         </NavDropdown.Item>
                     </NavDropdown>
-                    <Nav.Link href="/upload">Upload</Nav.Link>
+                    <Nav.Link><Link to="/upload" style={{textDecoration:"none"}}>Upload</Link></Nav.Link>
                     <Nav.Link href="#action2">
                         <img 
                             src='https://a-v2.sndcdn.com/assets/images/activities-66caaa5e.svg'

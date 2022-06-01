@@ -1,0 +1,75 @@
+
+
+.Track{
+    /* height: 44px; */
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    border-width: 1px 0 1px 0;
+    border-style: solid;
+    border-color: #f2f2f2;
+    margin: 10px;
+}
+
+.Track-img > img{
+    max-width: 80px;
+    max-height: 80px;
+}
+
+.Track-content{
+    /* flex: 1; */
+    height: 80px;
+    width: 100%;
+    margin-left: 5px;
+    background-image: url(https://va.sndcdn.com/bg/soundcloud:tracks:940102804/b28c652f-1702-495d-bf8b-b03374aae1af.jpeg);
+    position: relative;
+}
+.TrackContent-Title{
+    display: flex;
+    align-items: center;
+    padding: 10px;
+}
+.TrackContent-button{
+    width: 18px;
+    height: 18px;
+    background: #ff5500;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.TrackContent-containerUserName{
+    margin-left: 10px;
+    display: flex;
+}
+.TrackContent-userName{
+    background-color: rgba(0,0,0,.8);
+    color: #999;
+    font-size: 18px;
+    padding: 0 10px 0 10px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 20ch;
+}
+.TrackContent-trackName{
+    background-color: rgba(0,0,0,.8);
+    color: #fff;
+    font-size: 12px;
+    height: 12px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 21ch;
+    padding: 0 10px 0 10px;
+    margin-top: 4px;
+    margin-left: 10px;
+    }
+
+.Track-additional{
+    display: flex;
+    position: absolute;
+    bottom: -1px;
+    margin-left: 10px;
+    color: #FF5500;
+}

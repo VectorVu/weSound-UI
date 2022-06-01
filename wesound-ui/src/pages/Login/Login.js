@@ -44,7 +44,9 @@ export default function Login() {
                     progress: undefined,
                     closeButton:true
                 })
-                returnPage ? navigate(returnPage) : navigate("/");
+                setTimeout(()=>{
+                    returnPage ? navigate(`/${returnPage}`) : navigate("/");
+                }, 3000);
             }
         } catch (err) {
             toast.update(id, {
