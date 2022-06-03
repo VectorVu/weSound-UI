@@ -22,8 +22,8 @@ export default function Slider(){
                     ]
     const slide = imgs.map((item, index)=>{
         return(
-          <SwiperSlide className='SwiperSlide'>
-            <img key={index} src={item} />
+          <SwiperSlide key={index} className='SwiperSlide'>
+            <img  src={item} />
           </SwiperSlide>
         )
     })
