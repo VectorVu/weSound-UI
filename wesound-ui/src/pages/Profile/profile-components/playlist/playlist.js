@@ -4,6 +4,6 @@ import "./playlist.css";
 
 export default function Playlist(){
     return(
-        <div>Playlist.........</div>
+        <div className="playlists-contanier">Playlist.........</div>
     )
 }

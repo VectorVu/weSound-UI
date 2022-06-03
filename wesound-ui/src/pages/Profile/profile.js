@@ -3,7 +3,7 @@ import React from "react";
 import "./profile.css"
 import ListTrack from "../listTrack/listTrack";
 import Playlist from "./profile-components/playlist/playlist";
-import { BrowserRouter,Routes, Route, Link } from "react-router-dom";
+import { Routes, Route, Link } from "react-router-dom";
 import clsx from 'classnames';
 
 export default function Profile() {
@@ -14,6 +14,9 @@ export default function Profile() {
     const changeActiveList = (e) => {
         setActiveList({ active: e.id });
     }
+    // React.useEffect(()=>{
+
+    // }, [active])
     return (
         <div className="profile-container">
             <div className="profile-paper">
@@ -25,33 +28,30 @@ export default function Profile() {
                 </div>
                 <div className="profile-body">
                     <div className="profile-navbar">
-                        <div 
-                        id ="tracks"
-                        className={clsx({
-                            "navbar-item": true,
-                            "active": activeList.active === "tracks"
-                        })}
-                        onClick={(e) => changeActiveList(e.target)}>
+                        <div
+                            id="tracks"
+                            className={clsx({
+                                "navbar-item": true,
+                                "active": activeList.active === "tracks"
+                            })}
+                            onClick={(e) => changeActiveList(e.target)}>
                             Tracks
                         </div>
                         <div
-                        id="playlists" 
-                        className={clsx({
-                            "navbar-item": true,
-                            "active": activeList.active === "playlists"
-                        })} 
-                        onClick={(e) => changeActiveList(e.target)}>
-                            {/* <Link to="/profile/playlists" style={{textDecoration:"none"}}>Playlists</Link> */}
+                            id="playlists"
+                            className={clsx({
+                                "navbar-item": true,
+                                "active": activeList.active === "playlists"
+                            })}
+                            onClick={(e) => changeActiveList(e.target)}>
+                            {/* <Link to="/playlists" style={{textDecoration:"none"}}>Playlists</Link> */}
                             Playlists
                         </div>
                     </div>
                     <div className="list-container">
-                        <div className="render-list">
-                        
-                            <ListTrack/>
-                            
-                        
-                            
+                        <div className="render-list" >
+                            {activeList.active === "tracks" && <ListTrack />}
+                            {activeList.active === "playlists" && <Playlist />}
                         </div>
                         <div className="liked-List">
                             <div className="likedList-title">Liked List</div>

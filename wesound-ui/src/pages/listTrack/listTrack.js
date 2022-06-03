@@ -1,4 +1,4 @@
-import axios from "axios";
+import request from "../../api/request";
 import React from "react";
 import "./listTrack.css"
 import ProfileTrack from "../Profile/profile-components/profile-track/profile-track";

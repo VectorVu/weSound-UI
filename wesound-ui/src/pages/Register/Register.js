@@ -1,4 +1,4 @@
-import axios from "axios";
+import request from "../../api/request";
 import React from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate, useSearchParams } from 'react-router-dom';
@@ -25,8 +25,8 @@ export default function Register() {
         const { username, password, repeatPassword } = values;
         try {
             id = toast.loading("Registering...");
-            const res = await axios({
-                url: "http://localhost:9009/api/auth/register",
+            const res = await request({
+                url: "/api/auth/register",
                 method: "post",
                 data: {
                     username,
@@ -34,7 +34,7 @@ export default function Register() {
                     repeatPassword
                 }
             });
-            if (res.data.success) {
+            if (res.success) {
                 toast.update(id, {
                     render: "Sign up successfuly",
                     type: "success",

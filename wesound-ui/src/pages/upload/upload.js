@@ -1,4 +1,4 @@
-import axios from "axios";
+import request from "../../api/request";
 import React from "react";
 import clsx from 'classnames';
 import { useForm } from "react-hook-form";
@@ -24,8 +24,8 @@ export default function Upload() {
         const formData = new FormData();
         formData.append('file', file);
         try {
-            const res = await axios({
-                url: `http://localhost:9009/api/upload/${type}`,
+            const res = await request({
+                url: `/api/upload/${type}`,
                 method: 'POST',
                 data: formData
             });
@@ -36,18 +36,18 @@ export default function Upload() {
     }
     const onSubmit = async (values) => {
         let id;
-        if(values.streamUrl[0]){
+        if (values.streamUrl[0]) {
             id = toast.loading("Uploading...");
-            let imageUrl='https://file.tinnhac.com/2017/09/07/1474013063anh-ngang-71c3.jpg';
-            if(image){
+            let imageUrl = 'https://file.tinnhac.com/2017/09/07/1474013063anh-ngang-71c3.jpg';
+            if (image) {
                 imageUrl = await uploadFile('img', image);
             }
             const streamUrl = await uploadFile('audio', values.streamUrl[0]);
             try {
-                const res = await axios({
-                    url:'http://localhost:9009/api/track',
-                    method:'POST',
-                    data:{
+                const res = await request({
+                    url: '/api/track',
+                    method: 'POST',
+                    data: {
                         title: values.title,
                         streamUrl,
                         imageUrl,
@@ -55,7 +55,7 @@ export default function Upload() {
                         genre: values.genre
                     }
                 })
-                if(res.data.success){
+                if (res.data.success) {
                     toast.update(id, {
                         render: "Upload track successfuly",
                         type: "success",
@@ -66,7 +66,7 @@ export default function Upload() {
                         pauseOnHover: true,
                         draggable: true,
                         progress: undefined,
-                        closeButton:true
+                        closeButton: true
                     })
                 }
             } catch (error) {
@@ -80,7 +80,7 @@ export default function Upload() {
                     pauseOnHover: true,
                     draggable: true,
                     progress: undefined,
-                    closeButton:true
+                    closeButton: true
                 })
             }
         }
@@ -109,20 +109,18 @@ export default function Upload() {
                                     singleImage={true}
                                     withPreview={true}
                                     withLabel={false}
-                                />             
+                                />
                             </div>
                             <div className="mb-4 inputIformation">
                                 <div className="form-group">
                                     <div >
-                                    <label htmlFor="trackMp3" className="form-label">Choose your mp3 file:<span style={{ color: "red" }}> * </span></label>
+                                        <label htmlFor="trackMp3" className="form-label">Choose your mp3 file:<span style={{ color: "red" }}> * </span></label>
                                         <input
-                                            
                                             type="file"
                                             accept="audio/mpeg, audio/mp3"
                                             id="trackMp3"
                                             {...register('streamUrl', { required: true })}
                                         />
-                                      
                                         {errors?.streamUrl?.type === 'required' && <p>you must choose an mp3 file to upload</p>}
 
                                     </div>
@@ -130,7 +128,6 @@ export default function Upload() {
                                 <label htmlFor="title" className="form-label">Title:<span style={{ color: "red" }}> * </span></label>
                                 <div className="form-group">
                                     <input
-                                       
                                         id="title"
                                         placeholder="Name your track..."
                                         className="form-control"

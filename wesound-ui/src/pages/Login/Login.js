@@ -1,4 +1,4 @@
-import axios from "axios";
+import request from "../../api/request";
 import React from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate, useSearchParams } from 'react-router-dom';
@@ -23,15 +23,15 @@ export default function Login() {
         const {username, password} = values;
         try {
             id = toast.loading("login...");
-            const res = await axios({
-                url:"http://localhost:9009/api/auth/login",
+            const res = await request({
+                url:"/api/auth/login",
                 method:"post",
                 data:{
                     username,
                     password
                 }
             });
-            if (res.data.success) {
+            if (res.success) {
                 toast.update(id, {
                     render: "Sign in successfuly",
                     type: "success",
@@ -44,6 +44,7 @@ export default function Login() {
                     progress: undefined,
                     closeButton:true
                 })
+                localStorage.setItem('token', res.data.token);
                 setTimeout(()=>{
                     returnPage ? navigate(`/${returnPage}`) : navigate("/");
                 }, 3000);
