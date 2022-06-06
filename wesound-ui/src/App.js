@@ -6,6 +6,7 @@ import Loader from "./components/loader/loader";
 import request from "./api/request";
 import PrivateRoute from "./components/Route/PrivateRoute";
 import GuestRoute from "./components/Route/GuestRoute";
+import MainRoute from "./components/Route/MainRoute";
 
 const Login = lazy(() => import('./pages/Login/Login'));
 const Register = lazy(() => import('./pages/Register/Register'));
@@ -14,7 +15,7 @@ const Home = lazy(() => import("./pages/Home/Home"));
 const Profile = lazy(() => import("./pages/Profile/profile"));
 const Search = lazy(() => import("./pages/search/search"));
 
-
+export const authContext = React.createContext();
 function App() {
   const [userInfo, setUserInfo] = React.useState({
     status: "idle",
@@ -37,31 +38,40 @@ function App() {
       setUserInfo({ status: 'success', data: null });
     }
   }
+  const login = ({ token, preUrl }) => {
+    localStorage.setItem('token', token);
+    window.location.href = preUrl ?? '';
+  }
+  const logout = () => {
+    localStorage.removeItem('token');
+    setUserInfo({ status: 'success', data: null })
+  }
   React.useEffect(() => {
     verifyUserInfo();
   }, []);
-  console.log(userInfo.data);
   if (userInfo.status === "idle" || userInfo.status === "loading") return <Loader />
 
   if (userInfo.status === "error") return <div>Error</div>
   return (
-    <Suspense fallback={<Loader />}>
-      <Routes>
-        <Route element={<PrivateRoute user={userInfo.data}/>} >
-          <Route path="upload" element={<Upload />} />
-
-        </Route>
-        <Route element={<GuestRoute user={userInfo.data}/>} >
-          <Route path="login" element={<Login />} />
-          <Route path="register" element={<Register />} />
-        </Route>
-        <Route path="profile" element={<Profile />} />
-        <Route path="search" element={<Search />} />
-        <Route path="/" element={<Home />} />
-        <Route path="*" element={<div>404 Page</div>} />
-      </Routes>
-    </Suspense>
-
+    <authContext.Provider value={{ user: userInfo.data, login, logout }}>
+      <Suspense fallback={<Loader />}>
+        <Routes>
+          <Route element={<MainRoute />}>
+            <Route element={<PrivateRoute />} >
+              <Route path="upload" element={<Upload />} />
+            </Route>
+            <Route path="profile" element={<Profile />} />
+            <Route path="search" element={<Search />} />
+            <Route path="/" element={<Home />} />
+          </Route>
+          <Route element={<GuestRoute />} >
+            <Route path="login" element={<Login />} />
+            <Route path="register" element={<Register />} />
+          </Route>
+          <Route path="*" element={<div>404 Page</div>} />
+        </Routes>
+      </Suspense>
+    </authContext.Provider>
   );
 }
 

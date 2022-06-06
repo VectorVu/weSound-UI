@@ -5,9 +5,10 @@ import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import "./Login.css";
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import useAuth from "../../hooks/useAuth";
 
 export default function Login() {
-    const { register, handleSubmit, watch, formState: { errors } } = useForm(
+    const { register, handleSubmit, formState: { errors } } = useForm(
         {
             defaultValues: {
                 username: '',
@@ -16,8 +17,9 @@ export default function Login() {
         }
     );
     const navigate = useNavigate();
-    const [urlSearchParams, setUrlSearchParams] = useSearchParams();
-    const returnPage = urlSearchParams.get('from');
+    const {login} = useAuth();
+    const [urlSearchParams] = useSearchParams();
+    const preUrl = urlSearchParams.get('preUrl');
     const onSubmit = async(values) => {
         let id;
         const {username, password} = values;
@@ -44,10 +46,13 @@ export default function Login() {
                     progress: undefined,
                     closeButton:true
                 })
-                localStorage.setItem('token', res.data.token);
-                setTimeout(()=>{
-                    returnPage ? navigate(`/${returnPage}`) : navigate("/");
-                }, 3000);
+                
+                login({
+                    _id: res.data._id,
+                    token: res.data.token,
+                    preUrl: preUrl ?? ''
+                })
+                
             }
         } catch (err) {
             toast.update(id, {
