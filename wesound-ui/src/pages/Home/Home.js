@@ -5,8 +5,9 @@ import Track from "../../components/Track/Track";
 import { Col, Container, Row } from "react-bootstrap";
 import Footer from "../../components/Footer/Footer";
 import NavMusic from "../../components/NavMusic/NavMusic";
-export const trackContext = React.createContext()
 import useTrack from "../../hooks/useTrack";
+
+export const trackContext = React.createContext()
 export default function Home(){
 
   const [track, setTrack] = React.useState({
