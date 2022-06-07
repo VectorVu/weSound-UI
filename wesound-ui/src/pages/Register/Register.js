@@ -50,7 +50,7 @@ export default function Register() {
         if (image) {
             avatarUrl = await uploadFile('img', image);
         }
-        const { username, password, comfirmPassword } = values;
+        const { username, password, confirmPassword } = values;
         try {
             id = toast.loading("Registering...");
             const res = await request({
@@ -59,7 +59,7 @@ export default function Register() {
                 data: {
                     username,
                     password,
-                    comfirmPassword,
+                    confirmPassword,
                     avatarUrl
                 }
             });
@@ -150,7 +150,7 @@ export default function Register() {
                                             type="password"
                                             className="form-control"
                                             autoComplete="off"
-                                            {...register("comfirmPassword", {
+                                            {...register("confirmPassword", {
                                                 required: true, validate: (value) => {
                                                     if (value !== watch('password')) return false;
                                                     return true;
