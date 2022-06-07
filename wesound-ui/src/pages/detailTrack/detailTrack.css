@@ -1,0 +1,58 @@
+.detail-container{
+    max-width: 1536px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #F2F2F2;
+    height: calc(100vh -90px);
+}
+.detail-paper{
+    width: 80%;
+    max-width: 80%;
+    background-color: #fff;
+    height: 100%;
+}
+.detail-comment{
+    width: 68.5%;
+    height: 110px;
+    margin: 10px;
+   border-right: .5px solid gray;
+}
+.detailTrack-additional{
+ display: flex;
+ border-bottom: .5px solid gray ;
+ margin: 5px;
+ padding-bottom:5px;
+}
+.likeButton-container{
+    cursor: pointer;
+}
+.likeButton-container button{
+    color: #FF5500;
+}
+.counter{
+    display: flex; 
+    margin-left: 600px;
+}
+.counter div{
+    margin: 0 5px;
+}
+.detail-body{
+    width: 100%;
+    display: flex;
+}
+.TrackDetail-comment-input{
+    height: 40px;
+    display: flex;
+    margin: 5px;
+}
+.detailComment-form{
+    width: 95%;
+    margin-left: 5px;
+    
+}
+.detailComment-form input{
+    margin: 4px;
+    width: 98%;
+    border-radius: 5px;
+}

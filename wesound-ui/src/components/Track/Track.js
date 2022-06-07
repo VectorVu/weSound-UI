@@ -1,7 +1,7 @@
 import './Track.css'
 import React,{ useRef, useEffect, useState, useContext } from 'react';
 import WaveSurfer from 'wavesurfer.js';
-
+// import {trackContext} from '../../pages/Home/Home'
 import {trackContext} from '../../pages/Home/Home'
 export default function Track({handlePlayTrack, togglePlay}){
     const {track, play, handleSetPlay, setPlay} = useContext(trackContext)

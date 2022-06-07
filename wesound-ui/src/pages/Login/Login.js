@@ -1,7 +1,7 @@
 import request from "../../api/request";
 import React from "react";
 import { useForm } from "react-hook-form";
-import { Link, useNavigate, useSearchParams } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import "./Login.css";
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -16,19 +16,18 @@ export default function Login() {
             }
         }
     );
-    const navigate = useNavigate();
-    const {login} = useAuth();
+    const { login } = useAuth();
     const [urlSearchParams] = useSearchParams();
     const preUrl = urlSearchParams.get('preUrl');
-    const onSubmit = async(values) => {
+    const onSubmit = async (values) => {
         let id;
-        const {username, password} = values;
+        const { username, password } = values;
         try {
             id = toast.loading("login...");
             const res = await request({
-                url:"/api/auth/login",
-                method:"post",
-                data:{
+                url: "/api/auth/login",
+                method: "post",
+                data: {
                     username,
                     password
                 }
@@ -44,19 +43,19 @@ export default function Login() {
                     pauseOnHover: true,
                     draggable: true,
                     progress: undefined,
-                    closeButton:true
+                    closeButton: true
                 })
-                
+
                 login({
                     _id: res.data._id,
                     token: res.data.token,
                     preUrl: preUrl ?? ''
                 })
-                
+
             }
         } catch (err) {
             toast.update(id, {
-                render: err.message,
+                render: err.response.data.message,
                 type: "error",
                 isLoading: false,
                 autoClose: 3000,
@@ -65,8 +64,8 @@ export default function Login() {
                 pauseOnHover: true,
                 draggable: true,
                 progress: undefined,
-                closeButton:true,
-                autoComplete:true
+                closeButton: true,
+                autoComplete: true
             });
         }
     };
@@ -79,7 +78,7 @@ export default function Login() {
                         <form className="" onSubmit={handleSubmit(onSubmit)} autoComplete="off">
                             <h4 className="mb-4">We Sound</h4>
                             <div className="mb-4">
-                            <label htmlFor="uname" className="form-label">User Name:<span style={{color:"red"}}> * </span></label>
+                                <label htmlFor="uname" className="form-label">User Name:<span style={{ color: "red" }}> * </span></label>
                                 <div className="form-group">
                                     <input
                                         id="uname"
@@ -91,7 +90,7 @@ export default function Login() {
                                     {errors?.username?.type === 'required' && <p>Username is required</p>}
                                     {errors?.username?.type === 'minLength' && <p>Username must be more than 2 characters</p>}
                                 </div>
-                                <label htmlFor="upass" className="form-label">Password:<span style={{color:"red"}}> * </span></label>
+                                <label htmlFor="upass" className="form-label">Password:<span style={{ color: "red" }}> * </span></label>
                                 <div className="form-group">
                                     <input
                                         id="upass"
@@ -107,6 +106,9 @@ export default function Login() {
                             </div>
                             <button type="submit" className="btn btn-primary btn-block">
                                 Login
+                            </button>
+                            <button type="button" className="btn btn-danger btn-block" style={{ marginLeft: "10px" }}>
+                                <Link to="/" style={{ textDecoration: "none", color: "white" }}>Cancel</Link>
                             </button>
                         </form>
                     </div>

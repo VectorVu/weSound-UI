@@ -2,6 +2,7 @@ import request from "../../api/request";
 import React from "react";
 import clsx from 'classnames';
 import { useForm } from "react-hook-form";
+import { useNavigate, Link } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import './upload.css';
@@ -20,6 +21,7 @@ export default function Upload() {
             }
         }
     );
+    const navigate = useNavigate();
     const uploadFile = async (type, file) => {
         const formData = new FormData();
         formData.append('file', file);
@@ -29,7 +31,7 @@ export default function Upload() {
                 method: 'POST',
                 data: formData
             });
-            return res.data.data;
+            return res.data;
         } catch (error) {
             return '';
         }
@@ -55,23 +57,26 @@ export default function Upload() {
                         genre: values.genre
                     }
                 })
-                if (res.data.success) {
+                if (res.success) {
                     toast.update(id, {
                         render: "Upload track successfuly",
                         type: "success",
                         isLoading: false,
-                        autoClose: 3000,
+                        autoClose: 2000,
                         hideProgressBar: false,
                         closeOnClick: true,
                         pauseOnHover: true,
                         draggable: true,
                         progress: undefined,
                         closeButton: true
-                    })
+                    });
+                    setTimeout(() => {
+                        navigate(`/tracks/${res.data._id}`);
+                    }, 2000)
                 }
             } catch (error) {
                 toast.update(id, {
-                    render: error.message,
+                    render: error.response.data.message,
                     type: "error",
                     isLoading: false,
                     autoClose: 3000,
@@ -172,6 +177,9 @@ export default function Upload() {
                                 </div>
                                 <button type="submit" className="btn btn-primary btn-block">
                                     Save
+                                </button>
+                                <button type="button" className="btn btn-danger btn-block" style={{ marginLeft: "10px" }}>
+                                    <Link to="/" style={{ textDecoration: "none", color: "white" }}>Cancel</Link>
                                 </button>
                             </div>
                         </div>

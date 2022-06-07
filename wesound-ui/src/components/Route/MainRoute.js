@@ -3,12 +3,13 @@ import useAuth from "../../hooks/useAuth";
 import { Container, Navbar as bNavBar, } from 'react-bootstrap'
 import { Nav, NavDropdown, Form } from 'react-bootstrap'
 import { useForm } from "react-hook-form";
-import { Link, useNavigate, Outlet } from 'react-router-dom';
+import { NavLink, Link, useNavigate, Outlet } from 'react-router-dom';
 import './MainRoute.css'
 import NotAuthenticated from "../Permission/NotAuthenticated";
 import Authenticated from "../Permission/Authenticated";
+
 export default function MainRoute() {
-    const {user}= useAuth();
+    const { user } = useAuth();
     const navigate = useNavigate();
     const { register, handleSubmit, formState: { errors } } = useForm(
         {
@@ -40,9 +41,8 @@ export default function MainRoute() {
                             navbarScroll
                         >
                             <Nav.Link className='NavBar-item'><Link to="/" style={{ textDecoration: "none" }}>Home</Link></Nav.Link>
-                            <Nav.Link href="#action2" className='NavBar-item'>Stream</Nav.Link>
+                            <Nav.Link className='NavBar-item'>Stream</Nav.Link>
                             <Nav.Link href="#action2" className='NavBar-item'>Library</Nav.Link>
-
                             <Form className="d-flex NavBar-form" onSubmit={handleSubmit(onSubmit)}>
                                 <input
                                     type="search"
@@ -58,7 +58,7 @@ export default function MainRoute() {
                             </Form>
                         </Nav>
                         <Authenticated>
-                            <NavDropdown title={user.username} id="navbarScrollingDropdown">
+                            <NavDropdown title={user ? user.username : ""} id="navbarScrollingDropdown">
                                 <NavDropdown.Item><Link to="/profile" style={{ textDecoration: "none", color: "black" }}>Profile</Link></NavDropdown.Item>
                                 <NavDropdown.Item href="#action4">Another action</NavDropdown.Item>
                                 <NavDropdown.Divider />
@@ -68,8 +68,8 @@ export default function MainRoute() {
                             </NavDropdown>
                         </Authenticated>
                         <NotAuthenticated>
-                            <Nav.Link className='NavBar-item'><Link to="/login">Sign in</Link></Nav.Link>
-                            <Nav.Link className='NavBar-item'><Link to="/register">Create account</Link></Nav.Link>
+                            <Nav.Link className='NavBar-item'><Link style={{ textDecoration: "none" }} to="/login">Sign in</Link></Nav.Link>
+                            <Nav.Link className='NavBar-item'><Link style={{ textDecoration: "none" }} to="/register">Create account</Link></Nav.Link>
                         </NotAuthenticated>
                         <Nav.Link><Link to="/upload" style={{ textDecoration: "none" }}>Upload</Link></Nav.Link>
                         <Nav.Link href="#action2">
@@ -85,7 +85,7 @@ export default function MainRoute() {
                     </bNavBar.Collapse>
                 </Container>
             </bNavBar>
-            <Outlet/>
+            <Outlet />
         </div>
     )
 }
