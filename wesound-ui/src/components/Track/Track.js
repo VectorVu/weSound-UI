@@ -15,7 +15,6 @@ export default function Track({handlePlayTrack, togglePlay}){
         url = imgPause
     }
     const waveformRef = useRef()
-    
     async function fetchAudio(){
         if(waveformRef.current) {
             const wave = WaveSurfer.create({

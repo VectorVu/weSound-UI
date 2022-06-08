@@ -2,7 +2,7 @@
 .detail-header{
     height: 380px;
     width: 100%;
-    background: linear-gradient(to right, #E8CBC0, #636FA4);
+    background: linear-gradient(to right, #636F6F, #465051);
     display: flex;
     
 }
@@ -22,6 +22,22 @@
     display: flex;
     width: 70%;
     padding: 10px;
+    flex-direction: column;
+}
+.playButton-name{
+    display: flex;
+    width: 100%;
+}
+.waveContainer{
+    max-width: 100%;
+    /* overflow: hidden; */
+    margin: auto 0;
+}
+/* .waveContainer :first-child{
+    display: none !important;
+} */
+.waveContainer canvas{
+    max-width: 797px;
 }
 .detailPlay-button{
     background: #ff5500;

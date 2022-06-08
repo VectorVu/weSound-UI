@@ -16,7 +16,6 @@ const Profile = lazy(() => import("./pages/Profile/profile"));
 const Search = lazy(() => import("./pages/search/search"));
 const DetailTrackPage = lazy(() => import("./pages/detailTrack/detailTrack"));
 export const authContext = React.createContext();
-export const trackContext = React.createContext()
 
 function App() {
   const [userInfo, setUserInfo] = React.useState({
@@ -57,22 +56,11 @@ function App() {
   })
   const [play, setPlay] = React.useState(false)
 
-
-  function handlePlayTrack (wavesurfer){
-    wavesurfer.playPause()
-    setPlay(!play)
-  }
-  function handleSetPlay(){
-    setPlay(!play)
-  }
-
   if (userInfo.status === "idle" || userInfo.status === "loading") return <Loader />
 
   if (userInfo.status === "error") return <div>Error</div>
   return (
     <authContext.Provider value={{ user: userInfo.data, login, logout }}>
-      <trackContext.Provider value={{track, play, handleSetPlay, handlePlayTrack, setPlay}} >
-
       <Suspense fallback={<Loader />}>
         <Routes>
           <Route element={<MainRoute />}>
@@ -92,8 +80,6 @@ function App() {
           <Route path="*" element={<div>404 Page</div>} />
         </Routes>
       </Suspense>
-      </trackContext.Provider>
-
     </authContext.Provider>
   );
 }
