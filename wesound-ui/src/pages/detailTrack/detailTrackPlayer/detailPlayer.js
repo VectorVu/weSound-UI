@@ -18,7 +18,7 @@ export default function DetailTrackPlayer(props) {
         url = imgPause
     }
     const waveformRef = useRef()
-if(props){
+
     if (waveformRef.current) {
         const wave = WaveSurfer.create({
             container: waveformRef.current,
@@ -33,7 +33,7 @@ if(props){
         });
         setWaveSuffer(wave)
     }
-}
+
    
 
     function onHandlePlayTrack(wavesurfer) {
