@@ -11,6 +11,11 @@ import "./detailTrack.css"
 export default function DetailTrackPage() {
 
     const { trackId } = useParams();
+    const [track, setTrack] = React.useState({
+        status: "idle",
+        data: null
+    });
+    const { user } = useAuth();
     const { register, handleSubmit, formState: { errors } } = useForm(
         {
             defaultValues: {
@@ -24,29 +29,54 @@ export default function DetailTrackPage() {
     // if (isLoading) return <Loader />;
 
     // if (isError) return <div>Error</div>;
-   const onSubmitComment = async(values)=>{
+    const onSubmitComment = async (values) => {
         // const res = await request({
         //     url: 
         // })
         console.log(values.comment);
-   }
+    }
+ 
+    const fetchAudio = async () => {
+        try {
+            const getTrack = await request({
+                url: `/api/track/${trackId}`,
+                method: "GET"
+            })
+            if (getTrack.success) {
+                console.log("here");
+                setTrack({
+                    status: "success",
+                    data: getTrack.data
+                })
+
+            }
+        } catch (error) {
+
+        }
+
+    }
+    React.useEffect(() => {
+        console.log("vao day");
+        fetchAudio();
+
+    },[])
     return (
         <div className="detail-container">
             <div className="detail-paper">
-                <DetailTrackPlayer trackId={trackId} />
+                <DetailTrackPlayer track={track.data} />
                 <div className="detail-body">
                     <div className="detail-comment">
                         {/* <Authenticated> */}
-                            <div className='TrackDetail-comment-input'>
-                                <img src='https://avatar-ex-swe.nixcdn.com/playlist/2022/04/29/b/a/8/6/1651215910805_300.jpg'></img>
-                                <form className='detailComment-form' onSubmit={handleSubmit(onSubmitComment)}>
-                                    <input 
-                                    type="text" 
+                        <div className='TrackDetail-comment-input'>
+                            <img src={ ''}></img>
+                            <form className='detailComment-form' onSubmit={handleSubmit(onSubmitComment)}>
+                                <input
+                                    type="text"
                                     placeholder='Write Comment'
                                     {...register("comment", { required: true })}
-                                     />
-                                </form>
-                            </div>
+                                />
+                            </form>
+                        </div>
                         {/* </Authenticated> */}
                         <div className="detailTrack-additional">
                             <div className="likeButton-container">
@@ -72,11 +102,11 @@ export default function DetailTrackPage() {
 
                         </div>
                         <div className="detail-listComment">
-                                list comment
+                            list comment
                         </div>
                     </div>
                     <div className="detail-rightcol">
-                        list track 
+                        list track
                     </div>
                 </div>
             </div>

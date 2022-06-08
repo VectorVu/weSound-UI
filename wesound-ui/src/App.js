@@ -83,7 +83,7 @@ function App() {
               <Route path="profile" element={<Profile />} />
               <Route path="search" element={<Search />} />
               <Route path="/" element={<Home />} />
-              <Route path="tracks" element={<DetailTrackPage />} />
+              <Route path="track/:trackId" element={<DetailTrackPage />} />
           </Route>
           <Route element={<GuestRoute />} >
             <Route path="login" element={<Login />} />

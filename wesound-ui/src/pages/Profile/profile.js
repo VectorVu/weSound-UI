@@ -5,6 +5,7 @@ import ListTrack from "../listTrack/listTrack";
 import Playlist from "./profile-components/playlist/playlist";
 import { Routes, Route, Link } from "react-router-dom";
 import clsx from 'classnames';
+import useAuth from "../../hooks/useAuth";
 
 export default function Profile() {
     const [activeList, setActiveList] = React.useState({
@@ -17,13 +18,14 @@ export default function Profile() {
     // React.useEffect(()=>{
 
     // }, [active])
+    const {user}= useAuth();
     return (
         <div className="profile-container">
             <div className="profile-paper">
                 <div className="profile-header">
-                    <img className="ava-container" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTLQNwPW1Oy7FkHy_jT5VHrOvJQkdimFXpYOw&usqp=CAU"></img>
+                    <img className="ava-container" src={`${user.avatarUrl}`??''}></img>
                     <div className="username-container">
-                        User Name
+                       {user.username}
                     </div>
                 </div>
                 <div className="profile-body">
