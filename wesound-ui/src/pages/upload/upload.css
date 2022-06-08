@@ -37,5 +37,7 @@
     overflow:visible;
     max-width: 1500px;
   }
-
+p{
+  color: red;
+}
 
