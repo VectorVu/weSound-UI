@@ -1,2 +1,18 @@
+.NavMusic-container{
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    left: 0;
+
+}
+.NavMusic{
+    width: 100%;
+}
 
 
+.NavMusic-run{
+    display: flex;
+}
+.NavMusic-run input{
+    flex: 1;
+} 
