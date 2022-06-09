@@ -1,0 +1,81 @@
+
+
+.TrackItem{
+    /* height: 44px; */
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    border-width: 1px 0 1px 0;
+    border-style: solid;
+    border-color: #f2f2f2;
+    height: 230px;
+
+}
+
+.TrackItem-img > img{
+    max-width: 160px;
+    max-height: 160px;
+}
+
+.TrackItem-content{
+    /* flex: 1; */
+    height: 160px;
+    width: 100%;
+    margin-left: 5px;
+    position: relative;
+}
+.TrackItemContent-Title{
+    display: flex;
+    align-items: center;
+    padding: 10px;
+}
+.TrackItemContent-button{
+    width: 36px;
+    height: 36px;
+    background: #ff5500;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.TrackItemContent-containerUserName{
+    margin-left: 10px;
+}
+.TrackItemContent-userName{
+    color: #000;
+    font-size: 12px;
+    padding: 0 10px 0 10px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 33ch;
+}
+.TrackItemContent-trackName{
+    color: #000;
+    font-size: 15px;
+    height: 24px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 42ch;
+    padding: 0 10px 0 10px;
+    margin-top: 4px;
+    }
+
+.TrackItem-additional{
+    display: flex;
+}
+.TrackItem-additional div{
+    margin: auto 5px;
+    height: 50%;
+    border: 1px solid #e5e5e5;
+    border-radius: 5px;
+    padding: 0px 10px
+}
+
+
+
+.TrackItemContent-information{
+    display: flex;
+    justify-content: space-between;
+}

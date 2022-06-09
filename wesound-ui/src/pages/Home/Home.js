@@ -6,7 +6,7 @@ import { Col, Container, Row } from "react-bootstrap";
 import Footer from "../../components/Footer/Footer";
 import NavMusic from "../../components/NavMusic/NavMusic";
 import useTrack from "../../hooks/useTrack";
-
+import ListTrack from "../listTrack/listTrack";
 export const trackContext = React.createContext()
 export default function Home(){
 
@@ -31,9 +31,7 @@ export default function Home(){
         <Container>
           <Row>
             <Col lg={8}>
-              <Track 
-                    handlePlayTrack={handlePlayTrack}
-                    ></Track>
+             <ListTrack queryUrl='/api/track/trend'/>
             </Col>
             <Col lg={4}>
               <Footer></Footer>

@@ -16,6 +16,7 @@ const Profile = lazy(() => import("./pages/Profile/profile"));
 const Search = lazy(() => import("./pages/search/search"));
 const DetailTrackPage = lazy(() => import("./pages/detailTrack/detailTrack"));
 export const authContext = React.createContext();
+export const trackContext = React.createContext();
 
 function App() {
   const [userInfo, setUserInfo] = React.useState({
@@ -55,31 +56,36 @@ function App() {
     track: 'https://res.cloudinary.com/khong-co/video/upload/v1653902299/audio/Vietsub_Lyrics_Time_machine_-_mj_apanay_feat._aren_park_lpb5bu.mp3',
   })
   const [play, setPlay] = React.useState(false)
+  function handlePlayTrack(wavesurfer) {
+    wavesurfer.playPause()
 
+  }
   if (userInfo.status === "idle" || userInfo.status === "loading") return <Loader />
 
   if (userInfo.status === "error") return <div>Error</div>
   return (
     <authContext.Provider value={{ user: userInfo.data, login, logout }}>
-      <Suspense fallback={<Loader />}>
-        <Routes>
-          <Route element={<MainRoute />}>
-            <Route element={<PrivateRoute />} >
-              <Route path="upload" element={<Upload />} />
-              {/* <Route path="tracks" element={<DetailTrackPage />} /> */}
-            </Route>
+      <trackContext.Provider value={{handlePlayTrack}}>
+        <Suspense fallback={<Loader />}>
+          <Routes>
+            <Route element={<MainRoute />}>
+              <Route element={<PrivateRoute />} >
+                <Route path="upload" element={<Upload />} />
+                {/* <Route path="tracks" element={<DetailTrackPage />} /> */}
+              </Route>
               <Route path="profile" element={<Profile />} />
               <Route path="search" element={<Search />} />
               <Route path="/" element={<Home />} />
               <Route path="track/:trackId" element={<DetailTrackPage />} />
-          </Route>
-          <Route element={<GuestRoute />} >
-            <Route path="login" element={<Login />} />
-            <Route path="register" element={<Register />} />
-          </Route>
-          <Route path="*" element={<div>404 Page</div>} />
-        </Routes>
-      </Suspense>
+            </Route>
+            <Route element={<GuestRoute />} >
+              <Route path="login" element={<Login />} />
+              <Route path="register" element={<Register />} />
+            </Route>
+            <Route path="*" element={<div>404 Page</div>} />
+          </Routes>
+        </Suspense>
+      </trackContext.Provider>
     </authContext.Provider>
   );
 }

@@ -2,19 +2,15 @@ import React, { useEffect } from "react";
 import request from "../../api/request";
 import { useParams } from "react-router-dom";
 import DetailTrackPlayer from "./detailTrackPlayer/detailPlayer";
-import Track from "../../components/Track/Track";
 import useAuth from "../../hooks/useAuth";
 import Authenticated from "../../components/Permission/Authenticated";
 import { useForm } from "react-hook-form";
 import "./detailTrack.css"
-export const trackContext = React.createContext();
+
 function DetailTrackPage() {
     const { trackId } = useParams();
-    const [track, setTrack] = React.useState({
-        status: "idle",
-        data: null
-    });
-    const [play, setPlay] = React.useState(false);
+    
+  
     const { user } = useAuth();
     const { register, handleSubmit, formState: { errors } } = useForm(
         {
@@ -23,45 +19,17 @@ function DetailTrackPage() {
             }
         }
     )
-    function handlePlayTrack(wavesurfer) {
-        wavesurfer.playPause()
-        setPlay(!play)
-    }
-    function handleSetPlay() {
-        setPlay(!play)
-    }
+  
     const onSubmitComment = async (values) => {
         // const res = await request({
         //     url: 
         // }
     }
-    const fetchAudio = async () => {
-        try {
-            const getTrack = await request({
-                url: `/api/track/${trackId}`,
-                method: "get"
-            })
-            if (getTrack.success) {
-                setTrack({
-                    status: "success",
-                    data: getTrack.data
-                })
-            }
-        } catch (error) {
-            setTrack({
-                status: "error",
-                data: null
-            })
-        }
-    }
-    useEffect(() => {
-        fetchAudio();
-    }, [])
+    
     return (
-        <trackContext.Provider value={{ track: track.data, play, setPlay, handlePlayTrack, handleSetPlay }}>
             <div className="detail-container">
                 <div className="detail-paper">
-                    <DetailTrackPlayer />
+                    <DetailTrackPlayer trackId={trackId}/>
                     <div className="detail-body">
                         <div className="detail-comment">
                             {/* <Authenticated> */}
@@ -108,7 +76,6 @@ function DetailTrackPage() {
                     </div>
                 </div>
             </div>
-        </trackContext.Provider>
     )
 }
 export default DetailTrackPage;

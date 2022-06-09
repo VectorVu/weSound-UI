@@ -85,7 +85,7 @@ export default function MainRoute() {
                     </bNavBar.Collapse>
                 </Container>
             </bNavBar>
-            <Outlet />
+            <Outlet style={{marginTop:"50px"}}/>
         </div>
     )
 }

@@ -52,7 +52,7 @@ export default function Profile() {
                     </div>
                     <div className="list-container">
                         <div className="render-list" >
-                            {activeList.active === "tracks" && <ListTrack />}
+                            {activeList.active === "tracks" && <ListTrack queryUrl={`/api/track/byuser/${user._id}`}/>}
                             {activeList.active === "playlists" && <Playlist />}
                         </div>
                         <div className="liked-List">
