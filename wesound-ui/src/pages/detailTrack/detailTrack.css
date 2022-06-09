@@ -46,6 +46,10 @@
     display: flex;
     margin: 5px;
 }
+.TrackDetail-comment-input img{
+    width: 40px;
+    height: 40px;
+}
 .detailComment-form{
     width: 95%;
     margin-left: 5px;

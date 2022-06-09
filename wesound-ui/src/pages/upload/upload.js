@@ -71,7 +71,7 @@ export default function Upload() {
                         closeButton: true
                     });
                     setTimeout(() => {
-                        navigate(`/tracks/${res.data._id}`);
+                        navigate(`/track/${res.data._id}`);
                     }, 2000)
                 }
             } catch (error) {

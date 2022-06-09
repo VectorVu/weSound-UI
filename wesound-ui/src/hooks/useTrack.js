@@ -1,5 +1,5 @@
 import React from "react";
-import { trackContext } from "../App";
+import { trackContext } from "../pages/detailTrack/detailTrack";
 
 function useTrack(){
     const {track, play, handleSetPlay, handlePlayTrack, setPlay} = React.useContext(trackContext);

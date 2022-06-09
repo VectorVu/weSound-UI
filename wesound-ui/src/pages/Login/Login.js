@@ -55,7 +55,7 @@ export default function Login() {
             }
         } catch (err) {
             toast.update(id, {
-                render: err.response.data.message,
+                render: err.message,
                 type: "error",
                 isLoading: false,
                 autoClose: 3000,

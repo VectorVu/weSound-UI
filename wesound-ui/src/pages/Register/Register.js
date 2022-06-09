@@ -63,6 +63,7 @@ export default function Register() {
                     avatarUrl
                 }
             });
+    
             if (res.success) {
                 toast.update(id, {
                     render: "Sign up successfuly",
@@ -76,12 +77,12 @@ export default function Register() {
                     progress: undefined,
                     closeButton: true
                 })
-                setTimeout(() => {
-                    navigate("/login");
-                }, 2000);
+               setTimeout(()=>{
+                navigate("/login");
+               }, 2000)
+               
             }
         } catch (err) {
-            console.log(err);
             toast.update(id, {
                 render: err.message,
                 type: "error",
