@@ -3,16 +3,15 @@ import React,{ useRef, useEffect, useState, useContext } from 'react';
 import WaveSurfer from 'wavesurfer.js';
 // import {trackContext} from '../../pages/Home/Home'
 import {trackContext} from '../../pages/Home/Home'
-export default function Track({handlePlayTrack, togglePlay}){
-    const {track, play, handleSetPlay, setPlay} = useContext(trackContext)
-    const [wavesurfer, setWaveSuffer] = useState()
-    let url
+export default function Track(){
+    const {track, play, setCurrentPlayTrack, handlePlayPause} = useContext(trackContext)
+    let urlImg
     const imgPause = 'data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+Cjxzdmcgd2lkdGg9IjhweCIgaGVpZ2h0PSIxNHB4IiB2aWV3Qm94PSIwIDAgOCAxNCIgdmVyc2lvbj0iMS4xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB4bWxuczpza2V0Y2g9Imh0dHA6Ly93d3cuYm9oZW1pYW5jb2RpbmcuY29tL3NrZXRjaC9ucyI+CiAgICA8IS0tIEdlbmVyYXRvcjogU2tldGNoIDMuMi4yICg5OTgzKSAtIGh0dHA6Ly93d3cuYm9oZW1pYW5jb2RpbmcuY29tL3NrZXRjaCAtLT4KICAgIDx0aXRsZT5QbGF5IDI4PC90aXRsZT4KICAgIDxkZXNjPkNyZWF0ZWQgd2l0aCBTa2V0Y2guPC9kZXNjPgogICAgPGRlZnM+PC9kZWZzPgogICAgPGcgaWQ9IlBhZ2UtMSIgc3Ryb2tlPSJub25lIiBzdHJva2Utd2lkdGg9IjEiIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCIgc2tldGNoOnR5cGU9Ik1TUGFnZSI+CiAgICAgICAgPGcgaWQ9ImJ1dHRvbnMiIHNrZXRjaDp0eXBlPSJNU0FydGJvYXJkR3JvdXAiIHRyYW5zZm9ybT0idHJhbnNsYXRlKC0xNjUzLjAwMDAwMCwgLTg5MC4wMDAwMDApIiBmaWxsPSIjRkZGRkZGIj4KICAgICAgICAgICAgPHBhdGggZD0iTTE2NTMsOTA0IEwxNjU0Ljg0NjE1LDg5NyBMMTY1Myw4OTAgTDE2NjEsODk3IEwxNjUzLDkwNCBaIiBpZD0iUGxheS0yOCIgc2tldGNoOnR5cGU9Ik1TU2hhcGVHcm91cCI+PC9wYXRoPgogICAgICAgIDwvZz4KICAgIDwvZz4KPC9zdmc+'
     const imgPlay = 'data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+Cjxzdmcgd2lkdGg9IjhweCIgaGVpZ2h0PSIxMnB4IiB2aWV3Qm94PSIwIDAgOCAxMiIgdmVyc2lvbj0iMS4xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB4bWxuczpza2V0Y2g9Imh0dHA6Ly93d3cuYm9oZW1pYW5jb2RpbmcuY29tL3NrZXRjaC9ucyI+CiAgICA8IS0tIEdlbmVyYXRvcjogU2tldGNoIDMuMi4yICg5OTgzKSAtIGh0dHA6Ly93d3cuYm9oZW1pYW5jb2RpbmcuY29tL3NrZXRjaCAtLT4KICAgIDx0aXRsZT5QYXVzZSAyODwvdGl0bGU+CiAgICA8ZGVzYz5DcmVhdGVkIHdpdGggU2tldGNoLjwvZGVzYz4KICAgIDxkZWZzPjwvZGVmcz4KICAgIDxnIGlkPSJQYWdlLTEiIHN0cm9rZT0ibm9uZSIgc3Ryb2tlLXdpZHRoPSIxIiBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIHNrZXRjaDp0eXBlPSJNU1BhZ2UiPgogICAgICAgIDxnIGlkPSJidXR0b25zIiBza2V0Y2g6dHlwZT0iTVNBcnRib2FyZEdyb3VwIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgtMTY4OS4wMDAwMDAsIC04OTEuMDAwMDAwKSIgZmlsbD0iI0ZGRkZGRiI+CiAgICAgICAgICAgIDxwYXRoIGQ9Ik0xNjk0LDg5MSBMMTY5NCw5MDMgTDE2OTcsOTAzIEwxNjk3LDg5MSBMMTY5NCw4OTEgWiBNMTY4OSw4OTEgTDE2ODksOTAzIEwxNjkyLDkwMyBMMTY5Miw4OTEgTDE2ODksODkxIFoiIGlkPSJQYXVzZS0yOCIgc2tldGNoOnR5cGU9Ik1TU2hhcGVHcm91cCI+PC9wYXRoPgogICAgICAgIDwvZz4KICAgIDwvZz4KPC9zdmc+'
     if(play){
-        url = imgPlay
+        urlImg = imgPlay
     }else{
-        url = imgPause
+        urlImg = imgPause
     }
     const waveformRef = useRef()
     
@@ -25,22 +24,16 @@ export default function Track({handlePlayTrack, togglePlay}){
             });
             
             await wave.load(track.track)
-            wave.on('finish', function () {
-                setPlay(!play)
-                console.log(1);
-            });
-            setWaveSuffer(wave)
+           
+            setCurrentPlayTrack(wave)
         }
     }
     useEffect(()=>{
         fetchAudio()
     },[track])
-    useEffect(()=>{
-       
-    },[])
-    function onHandlePlayTrack(wavesurfer){
-        handlePlayTrack(wavesurfer)
-    }
+
+    
+ 
     return(
         <div className="Track" >
             <div className="Track-img">
@@ -48,8 +41,8 @@ export default function Track({handlePlayTrack, togglePlay}){
             </div>
             <div className="Track-content" ref={waveformRef}>
                 <div className="TrackContent-Title">
-                    <button onClick={()=>onHandlePlayTrack(wavesurfer)} className="TrackContent-button">
-                        <img src={url}></img>
+                    <button onClick={()=> handlePlayPause()} className="TrackContent-button">
+                        <img src={urlImg}></img>
 
                     </button>
                     <div  className="TrackContent-containerUserName">
