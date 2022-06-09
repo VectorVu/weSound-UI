@@ -1,8 +1,8 @@
 import axios from "axios";
 
 const ins = axios.create({
-    // baseURL: process.env.REACT_APP_BASE_URL
-    baseURL:"http://localhost:9009"
+    baseURL: process.env.REACT_APP_BASE_URL
+    // baseURL:"http://localhost:9009"
 })
 ins.interceptors.request.use(function (config) {
     const token = localStorage.getItem('token');
