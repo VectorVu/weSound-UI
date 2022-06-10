@@ -1,0 +1,10 @@
+.detail-cmtCount{
+    border-bottom: .5px solid gray;
+}
+.detail-cmtCount img{
+    width: 25px;
+    height: 25px;
+}
+.TrackAdditionnalCmtCount-num{
+    color: #999;
+}

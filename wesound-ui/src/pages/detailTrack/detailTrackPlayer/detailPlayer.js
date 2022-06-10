@@ -5,10 +5,9 @@ import useTrack from '../../../hooks/useTrack';
 import request from "../../../api/request";
 
 
-function DetailTrackPlayer({trackId}) {
+function DetailTrackPlayer({track}) {
     const { handlePlayTrack } = useTrack();
     const [wavesurfer, setWaveSuffer] = useState();
-    const [track, setTrackData] = useState(null);
     const [play, setPlay] = React.useState(false);
     let url
     const imgPause = 'data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+Cjxzdmcgd2lkdGg9IjhweCIgaGVpZ2h0PSIxNHB4IiB2aWV3Qm94PSIwIDAgOCAxNCIgdmVyc2lvbj0iMS4xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB4bWxuczpza2V0Y2g9Imh0dHA6Ly93d3cuYm9oZW1pYW5jb2RpbmcuY29tL3NrZXRjaC9ucyI+CiAgICA8IS0tIEdlbmVyYXRvcjogU2tldGNoIDMuMi4yICg5OTgzKSAtIGh0dHA6Ly93d3cuYm9oZW1pYW5jb2RpbmcuY29tL3NrZXRjaCAtLT4KICAgIDx0aXRsZT5QbGF5IDI4PC90aXRsZT4KICAgIDxkZXNjPkNyZWF0ZWQgd2l0aCBTa2V0Y2guPC9kZXNjPgogICAgPGRlZnM+PC9kZWZzPgogICAgPGcgaWQ9IlBhZ2UtMSIgc3Ryb2tlPSJub25lIiBzdHJva2Utd2lkdGg9IjEiIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCIgc2tldGNoOnR5cGU9Ik1TUGFnZSI+CiAgICAgICAgPGcgaWQ9ImJ1dHRvbnMiIHNrZXRjaDp0eXBlPSJNU0FydGJvYXJkR3JvdXAiIHRyYW5zZm9ybT0idHJhbnNsYXRlKC0xNjUzLjAwMDAwMCwgLTg5MC4wMDAwMDApIiBmaWxsPSIjRkZGRkZGIj4KICAgICAgICAgICAgPHBhdGggZD0iTTE2NTMsOTA0IEwxNjU0Ljg0NjE1LDg5NyBMMTY1Myw4OTAgTDE2NjEsODk3IEwxNjUzLDkwNCBaIiBpZD0iUGxheS0yOCIgc2tldGNoOnR5cGU9Ik1TU2hhcGVHcm91cCI+PC9wYXRoPgogICAgICAgIDwvZz4KICAgIDwvZz4KPC9zdmc+'
@@ -18,26 +17,7 @@ function DetailTrackPlayer({trackId}) {
     } else {
         url = imgPause
     }
-    const fetchAudio = async () => {
-        try {
-            const getTrack = await request({
-                url: `/api/track/detail/${trackId}`,
-                method: "get"
-            })
-            console.log(getTrack.success);
-            if (getTrack.success) {
-                setTrackData(getTrack.data)
-            }
-        } catch (error) {
-            setTrackData({
-                status: "error",
-                data: null
-            })
-        }
-    }
-    useEffect(() => {
-        fetchAudio();
-    }, [])
+
     const waveformRef = useRef();
     useEffect(() => {
         if (waveformRef.current) {

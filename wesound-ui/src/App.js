@@ -71,7 +71,7 @@ function App() {
             <Route element={<MainRoute />}>
               <Route element={<PrivateRoute />} >
                 <Route path="upload" element={<Upload />} />
-                {/* <Route path="tracks" element={<DetailTrackPage />} /> */}
+                <Route path="tracks/:trackId" element={<DetailTrackPage />} />
               </Route>
               <Route path="profile" element={<Profile />} />
               <Route path="search" element={<Search />} />

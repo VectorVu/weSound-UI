@@ -1,62 +1,88 @@
-.detail-container{
+.detail-container {
     max-width: 1536px;
     display: flex;
     justify-content: center;
     align-items: center;
     background-color: #F2F2F2;
-    height: calc(100vh -90px);
 }
-.detail-paper{
+
+.detail-paper {
     width: 80%;
     max-width: 80%;
     background-color: #fff;
     height: 100%;
 }
-.detail-comment{
-    width: 68.5%;
+
+.detail-leftcol {
+    display: flex;
+    flex-direction: column;
+    width: 68%;
+    border-right: .5px solid gray;
+    margin: 15px;
+
+}
+
+.detail-comment {
+    width: 97%;
     height: 110px;
-    margin: 10px;
-   border-right: .5px solid gray;
+   
 }
-.detailTrack-additional{
- display: flex;
- border-bottom: .5px solid gray ;
- margin: 5px;
- padding-bottom:5px;
+
+.detailTrack-additional {
+    display: flex;
+    border-bottom: .5px solid gray;
+    margin: 5px;
+    padding-bottom: 5px;
+    height: 33px;
+    justify-content: space-between;
 }
-.likeButton-container{
+
+.likeButton-container {
     cursor: pointer;
+    
 }
-.likeButton-container button{
+
+.likeButton-container button {
     color: #FF5500;
+    width: 70px;
 }
-.counter{
-    display: flex; 
-    margin-left: 600px;
+
+.counter {
+    display: flex;
 }
-.counter div{
+
+.counter div {
     margin: 0 5px;
+    width: 70px;
 }
-.detail-body{
+
+.detail-body {
     width: 100%;
     display: flex;
 }
-.TrackDetail-comment-input{
+
+.TrackDetail-comment-input {
     height: 40px;
     display: flex;
     margin: 5px;
 }
-.TrackDetail-comment-input img{
+
+.TrackDetail-comment-input img {
     width: 40px;
     height: 40px;
 }
-.detailComment-form{
+
+.detailComment-form {
     width: 95%;
     margin-left: 5px;
-    
+
 }
-.detailComment-form input{
+
+.detailComment-form input {
     margin: 4px;
     width: 98%;
     border-radius: 5px;
+}
+.detail-listComment{
+    width: 97%;
 }
