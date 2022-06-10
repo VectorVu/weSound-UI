@@ -8,7 +8,6 @@ import TrackItem from "./listTrackItem/item";
 const MAX_ITEMS_PER_PAGE = 4;
 
 export default function ListTrack({ queryUrl }) {
-  console.log(queryUrl);
   const [activeTrack, setActiveTrack] = React.useState();
   const [trackData, setTrackData] = React.useState({
     status: "idle",
