@@ -77,9 +77,9 @@ export default function Register() {
                     progress: undefined,
                     closeButton: true
                 })
-               setTimeout(()=>{
+              
                 navigate("/login");
-               }, 2000)
+              
                
             }
         } catch (err) {
@@ -87,7 +87,7 @@ export default function Register() {
                 render: err.message,
                 type: "error",
                 isLoading: false,
-                autoClose: 3000,
+                autoClose: 2000,
                 hideProgressBar: false,
                 closeOnClick: true,
                 pauseOnHover: true,
@@ -176,7 +176,7 @@ export default function Register() {
                             Have already an account? <Link to="/login">Login here</Link>
                         </div>
                         <ToastContainer position="top-center"
-                            autoClose={5000}
+                            autoClose={2000}
                             hideProgressBar={false}
                             newestOnTop={false}
                             closeOnClick
