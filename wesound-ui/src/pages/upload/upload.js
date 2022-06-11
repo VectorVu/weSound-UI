@@ -76,7 +76,7 @@ export default function Upload() {
                 }
             } catch (error) {
                 toast.update(id, {
-                    render: error.response.data.message,
+                    render: error.message,
                     type: "error",
                     isLoading: false,
                     autoClose: 3000,
